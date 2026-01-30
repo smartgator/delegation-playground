@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { DelegationGraph } from '@/components/delegation-graph'
 import { CreateDelegationForm } from '@/components/create-delegation'
 import { CaveatExplorer } from '@/components/caveat-explorer'
+import { RedemptionSimulator } from '@/components/redemption-simulator'
 import { sampleDelegations } from '@/data/delegations'
 import type { Delegation } from '@/types'
 import { GitBranch, PenTool, Shield, Play, Sparkles } from 'lucide-react'
@@ -121,7 +122,7 @@ export default function PlaygroundPage() {
                   </TabsContent>
 
                   <TabsContent value="simulator" className="mt-0">
-                    <SimulatorPlaceholder />
+                    <RedemptionSimulator />
                   </TabsContent>
                 </motion.div>
               </AnimatePresence>
@@ -209,56 +210,13 @@ export default function PlaygroundPage() {
                     </TabsContent>
 
                     <TabsContent value="simulator" className="mt-0">
-                      <SimulatorPlaceholder />
+                      <RedemptionSimulator />
                     </TabsContent>
                   </motion.div>
                 </AnimatePresence>
               </Tabs>
             </motion.div>
           </div>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function SimulatorPlaceholder() {
-  return (
-    <div className="rounded-xl border border-border/50 bg-card/30 backdrop-blur-sm overflow-hidden">
-      <div className="p-8 md:p-12 text-center">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: 'spring', stiffness: 200, damping: 15 }}
-          className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 mb-6"
-        >
-          <Play className="h-8 w-8 text-primary" />
-        </motion.div>
-        <h3 className="text-xl font-semibold mb-2">Redemption Simulator</h3>
-        <p className="text-muted-foreground max-w-sm mx-auto mb-6">
-          Step through the validation flow and see how delegations are redeemed in real-time.
-        </p>
-        <Badge variant="outline" className="bg-primary/5 border-primary/20">
-          Coming Soon
-        </Badge>
-      </div>
-      
-      <div className="relative h-32 bg-gradient-to-t from-muted/30 to-transparent">
-        <div className="absolute inset-0 flex items-end justify-center gap-2 pb-4 opacity-40">
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="w-8 rounded-t bg-primary/30"
-              initial={{ height: 20 }}
-              animate={{ height: [20, 40 + Math.random() * 30, 20] }}
-              transition={{
-                duration: 2,
-                repeat: Infinity,
-                delay: i * 0.2,
-                ease: 'easeInOut',
-              }}
-            />
-          ))}
         </div>
       </div>
     </div>
