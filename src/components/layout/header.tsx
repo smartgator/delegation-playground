@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { Link2, Home, Boxes } from "lucide-react"
+import { ConnectButton } from "@rainbow-me/rainbowkit"
 import { ThemeToggle } from "./theme-toggle"
 
 export function Header() {
@@ -37,6 +38,9 @@ export function Header() {
           </Link>
           <div className="ml-2 h-6 w-px bg-border" />
           <ThemeToggle />
+          <div className="ml-2">
+            <ConnectButton />
+          </div>
         </nav>
       </div>
     </header>

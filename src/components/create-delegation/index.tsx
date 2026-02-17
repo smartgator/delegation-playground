@@ -9,19 +9,25 @@ import { CodeSnippet } from './code-snippet'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { generateRandomSalt, generateMockSignature } from '@/lib/delegation-utils'
+import { getSmartAccountsEnvironment } from '@/lib/smart-accounts-config'
 import type { Account, DecodedCaveat, Delegation, Caveat, Address, Hex } from '@/types'
 import { ROOT_AUTHORITY } from '@/data/delegations'
 import { Plus, RotateCcw, Sparkles, ArrowRight } from 'lucide-react'
 
-const ENFORCER_ADDRESSES: Record<string, Address> = {
-  allowedTargets: '0x1111111111111111111111111111111111111111',
-  nativeTokenTransferAmount: '0x2222222222222222222222222222222222222222',
-  erc20TransferAmount: '0x3333333333333333333333333333333333333333',
-  timestamp: '0x4444444444444444444444444444444444444444',
-}
+// Get real Delegation Framework v1.3.0 enforcer addresses
+const getEnforcerAddresses = (): Record<string, Address> => {
+  const env = getSmartAccountsEnvironment();
+  return {
+    allowedTargets: env.addresses.enforcers.allowedTargets,
+    nativeTokenTransferAmount: env.addresses.enforcers.nativeTokenTransferAmount,
+    erc20TransferAmount: env.addresses.enforcers.erc20TransferAmount,
+    timestamp: env.addresses.enforcers.timestamp,
+  };
+};
 
 function encodeCaveat(decoded: DecodedCaveat): Caveat {
-  const enforcer = ENFORCER_ADDRESSES[decoded.type]
+  const enforcerAddresses = getEnforcerAddresses();
+  const enforcer = enforcerAddresses[decoded.type]
   return {
     enforcer,
     terms: '0x' as Hex,
